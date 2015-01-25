@@ -1,0 +1,84 @@
+<template name="ShopDetails">
+	<div class="page-container container" id="content">
+		<div class="row" id="title_row">
+			<div class="col-md-12">
+				<div id="page_menu" class="pull-right">
+				</div>
+			</div>
+		</div>
+		{{> ShopDetailsDetailsForm}}
+	</div>
+</template>
+
+<template name="ShopDetailsDetailsForm">
+	<div class="">
+		<h2 id="component-title">
+			<a href="#" id="form-back-button" class="btn btn-default" title="back">
+				<span class="fa fa-chevron-left">
+				</span>
+			</a>
+			餐馆详情
+		</h2>
+		<form id="form" role="form" class="form-horizontal">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}		
+		
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group  field-name">
+				<label for="name" class="col-sm-3 control-label">
+					餐馆名
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{shop_detail.name}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-phone">
+				<label for="phone" class="col-sm-3 control-label">
+					电话
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{shop_detail.phone}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-note">
+				<label for="note" class="col-sm-3 control-label">
+					商家备注
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{shop_detail.note}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-menu">
+				<label for="menu" class="col-sm-3 control-label">
+					菜品
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{shop_detail.menu}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div col-sm-9 col-sm-offset-3">
+					<a href="#" id="form-close-button" class="btn btn-primary">
+						OK
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+
