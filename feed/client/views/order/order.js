@@ -222,7 +222,12 @@ Template.OrderViewTable.helpers({
 
 
 Template.OrderViewTableItems.rendered = function() {
-	
+  $('.js-order-owner').each(function(){ 
+    var _this = $(this),
+        _ownerId = _this.attr('data-owner-id'),
+        _owner = Users.findOne({'_id': _ownerId});
+    _this.text(_owner);
+  });
 };
 
 Template.OrderViewTableItems.events({

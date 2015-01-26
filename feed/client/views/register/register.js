@@ -19,6 +19,7 @@ Template.Register.events({
 
 		var register_name = t.find('#register_name').value.trim();
 		var register_email = t.find('#register_email').value.trim();
+		var register_department = t.find('#register_department').value.trim();
 		var register_password = t.find('#register_password').value;
 
 		// check name
@@ -47,7 +48,16 @@ Template.Register.events({
 		}
 
 		submit_button.button("loading");
-		Accounts.createUser({email: register_email, password : register_password, profile: { name: register_name }}, function(err) {
+		Accounts.createUser({
+      email: register_email, 
+      password : register_password, 
+      profile:
+        {
+          name: register_name,
+          department: register_department
+        }
+      },
+    function(err) {
 			submit_button.button("reset");
 			if(err)
 				pageSession.set("errorMessage", err.message);

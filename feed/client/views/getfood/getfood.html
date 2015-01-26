@@ -39,6 +39,7 @@
 				</div>
 				{{/if}}
 			</div>
+      <!--
 			<div id="dataview-controls-export" class="form-group">
 				{{#if isNotEmpty}}			
 		{{#if isFound}}
@@ -71,11 +72,11 @@
 						</li>
 					</ul>
 				</div>
-				{{/if}}			
+				{{/if}}
 	{{/if}}
-			</div>
+      </div> -->
 		</form>
-		{{#if isNotEmpty}}	
+		{{#if isNotEmpty}}
 			{{#if isNotFound}}
 		<div class="alert alert-warning">
 			"{{searchString}}" not found.
@@ -119,7 +120,11 @@
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> GetfoodViewTableItems}} {{/each}}
+			{{#each tableItems}}
+      {{#if this.menu }}
+        {{> GetfoodViewTableItems}} 
+      {{/if}}
+      {{/each}}
 		</tbody>
 	</table>
   </form>
@@ -128,26 +133,26 @@
 <template name="GetfoodViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-      <input type="hidden"  value="{{ name }}" name="name"/>
+      <input class="js-get-food-field" type="hidden"  value="{{ name }}" name="name"/>
 			{{name}}
 		</td>
 		<td>
-      <input type="hidden"  value="{{ phone }}" name="phone"/>
+      <input class="js-get-food-field"  type="hidden"  value="{{ phone }}" name="phone"/>
 			{{phone}}
 		</td>
 		<td>
-      <select name="menu" class="form-control">
+      <select name="menu" class="form-control js-get-food-field">
       {{#each menu}}
         <option data-price="{{ this.price }}" value="{{ this.name }}">{{ this.name }}</option>
       {{/each}}
     </select>
 		</td>
 		<td>
-      <span id="js-price"></span>
-      <input type="hidden" name="price" value="">
+      <span class="js-price"></span>
+      <input type="hidden" name="price" value="" class="js-get-food-field">
 		</td>
 		<td>
-      <input type="hidden"  value="{{ note }}" name="note"/>
+      <input type="hidden"  value="{{ note }}" name="note" class="js-get-food-field"/>
 			{{note}}
 		</td>
 		<td class="td-icon">

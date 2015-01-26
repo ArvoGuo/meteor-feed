@@ -19,7 +19,7 @@ this.RegisterController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("department")
+			Meteor.subscribe("department_display")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -30,11 +30,11 @@ this.RegisterController = RouteController.extend({
 	},
 
 	data: function() {
-		
-
+	
+    console.log(Department.find({},{}).fetch())
 		return {
 			params: this.params || {},
-			department_display: Department.find({}, {})
+			department_display: Department.find({}, {}).fetch()
 		};
 		/*DATA_FUNCTION*/
 	},

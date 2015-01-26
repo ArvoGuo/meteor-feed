@@ -222,18 +222,19 @@ Template.GetfoodViewTable.helpers({
 
 
 Template.GetfoodViewTableItems.rendered = function() {
-    $('#js-price').each(function(){
+    $('.js-price').each(function(){
       var _this = $(this);
       var _price = _this.closest('tr').find('option:selected').attr('data-price');
-      _this.text(_price);
-      $(this).next().val(_price);
+      _this.text(_price).next().val(_price);
     });
 };
 
 Template.GetfoodViewTableItems.events({
   "change select": function(e,t){
-    var _price =  $(e.target).find('option:selected').attr('data-price');
-    var js_price = $('#js-price').text(_price);
+    var _this = $(e.target),
+        _tr = _this.closest('tr');
+    var _price =  _this.find('option:selected').attr('data-price');
+    var js_price = _tr.find('.js-price').text(_price);
     js_price.next().val(_price);
   },
 	"click #js-add-order": function(e, t) {
@@ -243,6 +244,7 @@ Template.GetfoodViewTableItems.events({
 		var self = this;
 
 		function submitAction() {
+      bootbox.alert('提交成功！');
 			if(!t.find("#form-cancel-button")) {
 				pageSession.set("getfoodInsertInsertFormInfoMessage", "Saved.");
 			}
@@ -251,9 +253,16 @@ Template.GetfoodViewTableItems.events({
 		}
 
 		function errorAction(msg) {
+      bootbox.alert('提交失败！');
 			pageSession.set("getfoodInsertInsertFormErrorMessage", "Error. " + msg);
 		}
-
+    var values = {};
+    var _tr = $(e.target).closest('tr');
+    _tr.find('.js-get-food-field').each(function(){
+      values[this.name] = this.value;
+    });
+    newId = Order.insert(values, function(e) { if(e) errorAction(e.message); else submitAction(); });
+     /* 
 		validateForm(
 			$(e.target).closest('form'),
 			function(fieldName, fieldValue) {
@@ -263,11 +272,11 @@ Template.GetfoodViewTableItems.events({
         bootbox.alert('提交失败，请联系管理员！');
 			},
 			function(values) {
-        console.log(values)
 				newId = Order.insert(values, function(e) { if(e) errorAction(e.message); else submitAction(); });
         bootbox.alert('提交成功！');
 			}
 		);
+    */
 
 		return false;
 	}
