@@ -195,7 +195,7 @@ Template.OrderView.helpers({
 
 
 Template.OrderViewTable.rendered = function() {
-	
+  console.log(222)	
 };
 
 Template.OrderViewTable.events({
@@ -216,6 +216,7 @@ Template.OrderViewTable.events({
 
 Template.OrderViewTable.helpers({
 	"tableItems": function() {
+    console.log(this.order)
 		return OrderViewItems(this.order);
 	}
 });

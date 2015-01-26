@@ -1,10 +1,10 @@
 var pageSession = new ReactiveDict();
 
-Template.Getfood.rendered = function() {
+Template.Myfood.rendered = function() {
 	
 };
 
-Template.Getfood.events({
+Template.Myfood.events({
 	"click #page-close-button": function(e, t) {
 		e.preventDefault();
 		Router.go("", {});
@@ -17,18 +17,18 @@ Template.Getfood.events({
 	
 });
 
-Template.Getfood.helpers({
+Template.Myfood.helpers({
 	
 });
 
-var GetfoodViewItems = function(cursor) {
+var MyfoodViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("GetfoodViewSearchString");
-	var sortBy = pageSession.get("GetfoodViewSortBy");
-	var sortAscending = pageSession.get("GetfoodViewSortAscending");
+	var searchString = pageSession.get("MyfoodViewSearchString");
+	var sortBy = pageSession.get("MyfoodViewSortBy");
+	var sortAscending = pageSession.get("MyfoodViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -40,7 +40,7 @@ var GetfoodViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["name", "phone", "note", "menu"];
+		var searchFields = ["menu", "shopName", "price"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -68,9 +68,9 @@ var GetfoodViewItems = function(cursor) {
 	return filtered;
 };
 
-var GetfoodViewExport = function(cursor, fileType) {
-	var data = GetfoodViewItems(cursor);
-	var exportFields = ["name", "phone", "note", "menu"];
+var MyfoodViewExport = function(cursor, fileType) {
+	var data = MyfoodViewItems(cursor);
+	var exportFields = ["menu","shopName", "price"];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
 
@@ -80,12 +80,12 @@ var GetfoodViewExport = function(cursor, fileType) {
 }
 
 
-Template.GetfoodView.rendered = function() {
-	pageSession.set("GetfoodViewStyle", "table");
+Template.MyfoodView.rendered = function() {
+	pageSession.set("MyfoodViewStyle", "table");
 	
 };
 
-Template.GetfoodView.events({
+Template.MyfoodView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -98,7 +98,7 @@ Template.GetfoodView.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("GetfoodViewSearchString", searchString);
+				pageSession.set("MyfoodViewSearchString", searchString);
 			}
 
 		}
@@ -114,7 +114,7 @@ Template.GetfoodView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("GetfoodViewSearchString", searchString);
+					pageSession.set("MyfoodViewSearchString", searchString);
 				}
 
 			}
@@ -129,7 +129,7 @@ Template.GetfoodView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("GetfoodViewSearchString", "");
+					pageSession.set("MyfoodViewSearchString", "");
 				}
 
 			}
@@ -141,97 +141,98 @@ Template.GetfoodView.events({
 
 	"click #dataview-insert-button": function(e, t) {
 		e.preventDefault();
-		Router.go("shop.insert", {});
+		/**/
 	},
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.shop, "csv");
+		MyfoodViewExport(this.order, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.shop, "csv");
+		MyfoodViewExport(this.order, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.shop, "tsv");
+		MyfoodViewExport(this.order, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.shop, "json");
+		MyfoodViewExport(this.order, "json");
 	}
 
 	
 });
 
-Template.GetfoodView.helpers({
+Template.MyfoodView.helpers({
 	"isEmpty": function() {
-		return !this.shop || this.shop.count() == 0;
+		return !this.order || this.order.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.shop && this.shop.count() > 0;
+		return this.order && this.order.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.shop && pageSession.get("GetfoodViewSearchString") && GetfoodViewItems(this.shop).length == 0;
+		return this.order && pageSession.get("MyfoodViewSearchString") && MyfoodViewItems(this.order).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("GetfoodViewSearchString");
+		return pageSession.get("MyfoodViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("GetfoodViewStyle") == "table";
+		return pageSession.get("MyfoodViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("GetfoodViewStyle") == "list";
+		return pageSession.get("MyfoodViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("GetfoodViewStyle") == "gallery";
+		return pageSession.get("MyfoodViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.GetfoodViewTable.rendered = function() {
+Template.MyfoodViewTable.rendered = function() {
 	
 };
 
-Template.GetfoodViewTable.events({
+Template.MyfoodViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("GetfoodViewSortBy");
+		var oldSortBy = pageSession.get("MyfoodViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("GetfoodViewSortBy", newSortBy);
+		pageSession.set("MyfoodViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("GetfoodViewSortAscending") || false;
-			pageSession.set("GetfoodViewSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("MyfoodViewSortAscending") || false;
+			pageSession.set("MyfoodViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("GetfoodViewSortAscending", true);
+			pageSession.set("MyfoodViewSortAscending", true);
 		}
 	}
 });
 
-Template.GetfoodViewTable.helpers({
+Template.MyfoodViewTable.helpers({
 	"tableItems": function() {
-		return GetfoodViewItems(this.shop);
+    console.log(MyfoodViewItems(this.order))
+		return MyfoodViewItems(this.order);
 	}
 });
 
 
-Template.GetfoodViewTableItems.rendered = function() {
+Template.MyfoodViewTableItems.rendered = function() {
 	
 };
 
-Template.GetfoodViewTableItems.events({
-  /*
+Template.MyfoodViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
-		Router.go("shop.details", {shopId: this._id});
+		/**/
 		return false;
 	},
+
 	"click #delete-button": function(e, t) {
 		e.preventDefault();
 		var me = this;
@@ -244,7 +245,7 @@ Template.GetfoodViewTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Shop.remove({ _id: me._id });
+						Order.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -257,48 +258,11 @@ Template.GetfoodViewTableItems.events({
 	},
 	"click #edit-button": function(e, t) {
 		e.preventDefault();
-		Router.go("shop.edit", {shopId: this._id});
+		/**/
 		return false;
 	}
-  */
-	"click #js-add-order": function(e, t) {
-		e.preventDefault();
-		pageSession.set("getfoodInsertInsertFormInfoMessage", "");
-		pageSession.set("getfoodInsertInsertFormErrorMessage", "");
-
-		var self = this;
-
-		function submitAction() {
-			if(!t.find("#form-cancel-button")) {
-				pageSession.set("getfoodInsertInsertFormInfoMessage", "Saved.");
-			}
-
-		//	Router.go("shop", {});
-		}
-
-		function errorAction(msg) {
-			pageSession.set("getfoodInsertInsertFormErrorMessage", "Error. " + msg);
-		}
-
-		validateForm(
-			$(e.target),
-			function(fieldName, fieldValue) {
-
-			},
-			function(msg) {
-
-			},
-			function(values) {
-        var orderMenu = $('[name=menu]').val();
-        values['menu'] = orderMenu;
-				newId = Order.insert(values, function(e) { if(e) errorAction(e.message); else submitAction(); });
-			}
-		);
-
-		return false;
-	},
 });
 
-Template.GetfoodViewTableItems.helpers({
+Template.MyfoodViewTableItems.helpers({
 
 });

@@ -7,11 +7,13 @@ Router.configure({
 });
 
 if(Meteor.isClient) {
-	var publicRoutes = ["home", "getfood", "getfood.insert", "getfood.details", "getfood.edit", "login", "register", "forgot_password", "reset_password"];
-	var privateRoutes = ["home_private", "admin", "admin.users", "admin.users.details", "admin.users.insert", "admin.users.edit", "user_settings", "user_settings.profile", "user_settings.change_pass", "shop", "shop.insert", "shop.details", "shop.edit", "order", "order.details", "logout"];
+	var publicRoutes = ["home", "login", "register", "forgot_password", "reset_password"];
+	var privateRoutes = ["home_private", "getfood", "myfood", "admin", "admin.users", "admin.users.details", "admin.users.insert", "admin.users.edit", "user_settings", "user_settings.profile", "user_settings.change_pass", "shop", "shop.insert", "shop.details", "shop.edit", "order", "order.details", "logout"];
 	var zonelessRoutes = [];
 
 	var roleMap = [
+		{ route: "getfood", roles: ["user"] },
+		{ route: "myfood", roles: ["user"] },
 		{ route: "admin", roles: ["admin"] },
 		{ route: "admin.users", roles: ["admin"] },
 		{ route: "admin.users.details", roles: ["admin"] },
@@ -127,15 +129,13 @@ if(Meteor.isClient) {
 Router.map(function () {
 	
 	this.route("home", {path: "/", controller: "HomeController"});
-	this.route("getfood", {path: "/getfood", controller: "GetfoodController"});
-	this.route("getfood.insert", {path: "/getfood/insert", controller: "GetfoodInsertController"});
-	this.route("getfood.details", {path: "/getfood/details/:shopId", controller: "GetfoodDetailsController"});
-	this.route("getfood.edit", {path: "/getfood/edit/:shopId", controller: "GetfoodEditController"});
 	this.route("login", {path: "/login", controller: "LoginController"});
 	this.route("register", {path: "/register", controller: "RegisterController"});
 	this.route("forgot_password", {path: "/forgot_password", controller: "ForgotPasswordController"});
 	this.route("reset_password", {path: "/reset_password/:resetPasswordToken", controller: "ResetPasswordController"});
 	this.route("home_private", {path: "/home_private", controller: "HomePrivateController"});
+	this.route("getfood", {path: "/getfood", controller: "GetfoodController"});
+	this.route("myfood", {path: "/myfood", controller: "MyfoodController"});
 	this.route("admin", {path: "/admin", controller: "AdminController"});
 	this.route("admin.users", {path: "/admin/users", controller: "AdminUsersController"});
 	this.route("admin.users.details", {path: "/admin/users/details/:userId", controller: "AdminUsersDetailsController"});

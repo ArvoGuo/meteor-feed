@@ -55,6 +55,11 @@
 				我要点餐
 			</a>
 		</li>
+		<li id="menu-item-simple" class="{{menuItemClass 'myfood'}}">
+			<a href="{{pathFor 'myfood'}}">
+				我的订单
+			</a>
+		</li>
 	</ul>
 </template>
 
@@ -117,6 +122,16 @@
 				首页
 			</a>
 		</li>
+		<li id="menu-item-simple" class="{{menuItemClass 'getfood'}}">
+			<a href="{{pathFor 'getfood'}}">
+				我要点餐
+			</a>
+		</li>
+		<li id="menu-item-simple" class="{{menuItemClass 'myfood'}}">
+			<a href="{{pathFor 'myfood'}}">
+				我的订单
+			</a>
+		</li>
 		<li id="menu-item-simple" class="{{menuItemClass 'shop'}}">
 			<a href="{{pathFor 'shop'}}">
 				餐馆管理
@@ -134,7 +149,7 @@
 	<ul id="menu-items" class="nav navbar-nav navbar-right">
 		<li id="menu-item-simple" class="{{menuItemClass 'admin'}}">
 			<a href="{{pathFor 'admin'}}">
-				用户管理
+				管理员
 			</a>
 		</li>
 		<li id="menu-item-dropdown" class="dropdown ">

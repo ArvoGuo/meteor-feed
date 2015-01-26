@@ -1,4 +1,4 @@
-<template name="Order">
+<template name="Myfood">
 	<div class="page-container container" id="content">
 		<div class="row" id="title_row">
 			<div class="col-md-12">
@@ -6,14 +6,14 @@
 				</div>
 			</div>
 		</div>
-		{{> OrderView}}
+		{{> MyfoodView}}
 	</div>
 </template>
 
-<template name="OrderView">
+<template name="MyfoodView">
 	<div id="dataview" class="">
 		<h2 id="component-title">
-			订单管理
+			我的订单
 		</h2>
 		<form id="dataview-controls" class="form-inline">
 			<div id="dataview-controls-search">
@@ -47,17 +47,17 @@
 					<ul class="dropdown-menu" role="menu">
 						<li>
 							<a href="#" id="dataview-export-csv">
-                导出CSV表格
+								Export to CSV
 							</a>
 						</li>
 						<li>
 							<a href="#" id="dataview-export-tsv">
-								导出TSV
+								Export to TSV
 							</a>
 						</li>
 						<li>
 							<a href="#" id="dataview-export-json">
-                导出json数据
+								Export to JSON
 							</a>
 						</li>
 					</ul>
@@ -73,26 +73,23 @@
 		</div>
 		{{else}}
 		<div id="dataview-data">
-			{{#if viewAsTable}} {{> OrderViewTable}} {{/if}}
+			{{#if viewAsTable}} {{> MyfoodViewTable}} {{/if}}
 		</div>
 		{{/if}}	
 		{{else}}
 		<div class="alert alert-info">
-			暂时还没有任何订单哦~可以通知大家点个餐:(
+			暂时还没有点任何东西哦~:(
 		</div>
 		{{/if}}
 	</div>
 </template>
 
-<template name="OrderViewTable">
-	<table id="dataview-table" class="table table-striped table-hover">
+<template name="MyfoodViewTable">
+	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="date">
-					订单日期
-				</th>
-				<th class="th-sortable" data-sort="shopId">
-					餐馆ID
+				<th class="th-sortable" data-sort="shopMenu">
+          菜名
 				</th>
 				<th class="th-sortable" data-sort="shopName">
 					餐馆名
@@ -100,27 +97,30 @@
 				<th class="th-sortable" data-sort="price">
 					价格
 				</th>
+				<th class="th-sortable" data-sort="date">
+					订单日期
+				</th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
-			{{#each tableItems}} {{> OrderViewTableItems}} {{/each}}
+			{{#each tableItems}} {{> MyfoodViewTableItems}} {{/each}}
 		</tbody>
 	</table>
 </template>
 
-<template name="OrderViewTableItems">
+<template name="MyfoodViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-			{{formatDate date 'MM-DD-YYYY'}}
-		</td>
-		<td>
-			{{shopId}}
+			{{menu}}
 		</td>
 		<td>
 			{{shopName}}
 		</td>
 		<td>
-			{{price}}
+			{{this.price}}
+		</td>
+		<td>
+			{{formatDate createdAt 'YYYY-MM-DD'}}
 		</td>
 	</tr>
 </template>

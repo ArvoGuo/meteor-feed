@@ -2,28 +2,28 @@
 	<div class="container">
 		<form id="login_form" class="account-form" role="form">
 			<h2>
-				Please sign in
+        请登录
 			</h2>
 			{{#if errorMessage}}
 			<div class="alert alert-warning">
 				{{errorMessage}}
 			</div>
 			{{/if}}
-			<input id="login_email" type="text" class="form-control" placeholder="Email address" required autofocus>
-			<input id="login_password" type="password" class="form-control" placeholder="Password" required>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" data-loading-text="Please wait...">
+			<input id="login_email" type="text" class="form-control" placeholder="请输入邮箱" required autofocus>
+			<input id="login_password" type="password" class="form-control" placeholder="请输入密码" required>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" data-loading-text="请稍后...">
 				Sign in
 			</button>
 			<p class="account-form-text-after" id="register-link">
-				Not a member?
+        还没有帐号？
 				<a href="{{pathFor 'register'}}">
-					Sign up here
+          马上注册
 				</a>
 			</p>
 			<p class="account-form-text-after" id="forgot-password-link">
-				Forgot password?
+      忘记密码？
 				<a href="{{pathFor 'forgot_password'}}">
-					Click here
+          找回密码
 				</a>
 			</p>
 		</form>
