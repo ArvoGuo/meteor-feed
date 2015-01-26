@@ -40,7 +40,7 @@ var OrderViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["username", "shop", "menu", "price", "date", "note"];
+		var searchFields = ["date", "shopId", "shopName", "price"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -70,7 +70,7 @@ var OrderViewItems = function(cursor) {
 
 var OrderViewExport = function(cursor, fileType) {
 	var data = OrderViewItems(cursor);
-	var exportFields = ["username", "shop", "menu", "price", "date", "note"];
+	var exportFields = ["date", "shopId", "shopName", "price"];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
 
@@ -141,7 +141,7 @@ Template.OrderView.events({
 
 	"click #dataview-insert-button": function(e, t) {
 		e.preventDefault();
-		Router.go("order.insert", {});
+		/**/
 	},
 
 	"click #dataview-export-default": function(e, t) {

@@ -40,7 +40,7 @@ var GetfoodViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["username", "shop", "menu", "price", "date", "note"];
+		var searchFields = ["name", "phone", "note", "menu"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -70,7 +70,7 @@ var GetfoodViewItems = function(cursor) {
 
 var GetfoodViewExport = function(cursor, fileType) {
 	var data = GetfoodViewItems(cursor);
-	var exportFields = ["username", "shop", "menu", "price", "date", "note"];
+	var exportFields = ["name", "phone", "note", "menu"];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
 
@@ -141,27 +141,27 @@ Template.GetfoodView.events({
 
 	"click #dataview-insert-button": function(e, t) {
 		e.preventDefault();
-		Router.go("order.insert", {});
+		Router.go("shop.insert", {});
 	},
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.order, "csv");
+		GetfoodViewExport(this.shop, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.order, "csv");
+		GetfoodViewExport(this.shop, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.order, "tsv");
+		GetfoodViewExport(this.shop, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		GetfoodViewExport(this.order, "json");
+		GetfoodViewExport(this.shop, "json");
 	}
 
 	
@@ -169,13 +169,13 @@ Template.GetfoodView.events({
 
 Template.GetfoodView.helpers({
 	"isEmpty": function() {
-		return !this.order || this.order.count() == 0;
+		return !this.shop || this.shop.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.order && this.order.count() > 0;
+		return this.shop && this.shop.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.order && pageSession.get("GetfoodViewSearchString") && GetfoodViewItems(this.order).length == 0;
+		return this.shop && pageSession.get("GetfoodViewSearchString") && GetfoodViewItems(this.shop).length == 0;
 	},
 	"searchString": function() {
 		return pageSession.get("GetfoodViewSearchString");
@@ -216,7 +216,7 @@ Template.GetfoodViewTable.events({
 
 Template.GetfoodViewTable.helpers({
 	"tableItems": function() {
-		return GetfoodViewItems(this.order);
+		return GetfoodViewItems(this.shop);
 	}
 });
 
@@ -226,12 +226,12 @@ Template.GetfoodViewTableItems.rendered = function() {
 };
 
 Template.GetfoodViewTableItems.events({
+  /*
 	"click td": function(e, t) {
 		e.preventDefault();
-		Router.go("order.details", {orderId: this._id});
+		Router.go("shop.details", {shopId: this._id});
 		return false;
 	},
-
 	"click #delete-button": function(e, t) {
 		e.preventDefault();
 		var me = this;
@@ -244,7 +244,7 @@ Template.GetfoodViewTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Order.remove({ _id: me._id });
+						Shop.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -257,9 +257,49 @@ Template.GetfoodViewTableItems.events({
 	},
 	"click #edit-button": function(e, t) {
 		e.preventDefault();
-		/**/
+		Router.go("shop.edit", {shopId: this._id});
 		return false;
 	}
+  */
+	"click #js-add-order": function(e, t) {
+		e.preventDefault();
+		pageSession.set("getfoodInsertInsertFormInfoMessage", "");
+		pageSession.set("getfoodInsertInsertFormErrorMessage", "");
+
+		var self = this;
+
+		function submitAction() {
+			if(!t.find("#form-cancel-button")) {
+				pageSession.set("getfoodInsertInsertFormInfoMessage", "Saved.");
+			}
+
+		//	Router.go("shop", {});
+		}
+
+		function errorAction(msg) {
+			pageSession.set("getfoodInsertInsertFormErrorMessage", "Error. " + msg);
+		}
+
+		validateForm(
+			$(e.target),
+			function(fieldName, fieldValue) {
+
+			},
+			function(msg) {
+
+			},
+			function(values) {
+        var orderMenu = $('[name=menu]').val(),
+            date = new Date();
+        values['menu'] = orderMenu;
+        values['date'] = date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate();
+        console.log(values)
+				newId = Order.insert(values, function(e) { if(e) errorAction(e.message); else submitAction(); });
+			}
+		);
+
+		return false;
+	},
 });
 
 Template.GetfoodViewTableItems.helpers({

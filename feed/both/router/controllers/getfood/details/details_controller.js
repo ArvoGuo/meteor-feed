@@ -19,7 +19,7 @@ this.GetfoodDetailsController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("order_detail", this.params.orderId)
+			Meteor.subscribe("shop_detail", this.params.shopId)
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,7 +34,7 @@ this.GetfoodDetailsController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			order_detail: Order.findOne({_id:this.params.orderId}, {})
+			shop_detail: Shop.findOne({_id:this.params.shopId}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

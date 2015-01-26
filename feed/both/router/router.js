@@ -7,8 +7,8 @@ Router.configure({
 });
 
 if(Meteor.isClient) {
-	var publicRoutes = ["home", "getfood", "getfood.insert", "getfood.details", "login", "register", "forgot_password", "reset_password"];
-	var privateRoutes = ["home_private", "admin", "admin.users", "admin.users.details", "admin.users.insert", "admin.users.edit", "user_settings", "user_settings.profile", "user_settings.change_pass", "shop", "shop.insert", "shop.details", "shop.edit", "order", "order.insert", "order.details", "logout"];
+	var publicRoutes = ["home", "getfood", "getfood.insert", "getfood.details", "getfood.edit", "login", "register", "forgot_password", "reset_password"];
+	var privateRoutes = ["home_private", "admin", "admin.users", "admin.users.details", "admin.users.insert", "admin.users.edit", "user_settings", "user_settings.profile", "user_settings.change_pass", "shop", "shop.insert", "shop.details", "shop.edit", "order", "order.details", "logout"];
 	var zonelessRoutes = [];
 
 	var roleMap = [
@@ -25,7 +25,6 @@ if(Meteor.isClient) {
 		{ route: "shop.details", roles: ["admin"] },
 		{ route: "shop.edit", roles: ["admin"] },
 		{ route: "order", roles: ["admin"] },
-		{ route: "order.insert", roles: ["admin"] },
 		{ route: "order.details", roles: ["admin"] }
 	];
 
@@ -130,7 +129,8 @@ Router.map(function () {
 	this.route("home", {path: "/", controller: "HomeController"});
 	this.route("getfood", {path: "/getfood", controller: "GetfoodController"});
 	this.route("getfood.insert", {path: "/getfood/insert", controller: "GetfoodInsertController"});
-	this.route("getfood.details", {path: "/getfood/details/:orderId", controller: "GetfoodDetailsController"});
+	this.route("getfood.details", {path: "/getfood/details/:shopId", controller: "GetfoodDetailsController"});
+	this.route("getfood.edit", {path: "/getfood/edit/:shopId", controller: "GetfoodEditController"});
 	this.route("login", {path: "/login", controller: "LoginController"});
 	this.route("register", {path: "/register", controller: "RegisterController"});
 	this.route("forgot_password", {path: "/forgot_password", controller: "ForgotPasswordController"});
@@ -149,7 +149,6 @@ Router.map(function () {
 	this.route("shop.details", {path: "/shop/details/:shopId", controller: "ShopDetailsController"});
 	this.route("shop.edit", {path: "/shop/edit/:shopId", controller: "ShopEditController"});
 	this.route("order", {path: "/order", controller: "OrderController"});
-	this.route("order.insert", {path: "/order/insert", controller: "OrderInsertController"});
 	this.route("order.details", {path: "/order/details/:orderId", controller: "OrderDetailsController"});
 	this.route("logout", {path: "/logout", controller: "LogoutController"});/*ROUTER_MAP*/
 });

@@ -17,7 +17,7 @@
 				<span class="fa fa-chevron-left">
 				</span>
 			</a>
-			我点的菜
+			餐馆详情
 		</h2>
 		<form id="form" role="form" class="form-horizontal">
 			{{#if errorMessage}}
@@ -31,64 +31,59 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
-			<div class="form-group  field-username">
-				<label for="username" class="col-sm-3 control-label">
-					用户名
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.username}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-shop">
-				<label for="shop" class="col-sm-3 control-label">
+			<div class="form-group  field-name">
+				<label for="name" class="col-sm-3 control-label">
 					餐馆名
 				</label>
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
-						{{order_detail.shop}}
+						{{shop_detail.name}}
 					</p>
 				</div>
 			</div>
-			<div class="form-group  field-menu">
-				<label for="menu" class="col-sm-3 control-label">
-					菜名
+			<div class="form-group  field-phone">
+				<label for="phone" class="col-sm-3 control-label">
+					电话
 				</label>
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
-						{{order_detail.menu}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-price">
-				<label for="price" class="col-sm-3 control-label">
-					价格
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.price}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-date">
-				<label for="date" class="col-sm-3 control-label">
-					下单时间
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.date}}
+						{{shop_detail.phone}}
 					</p>
 				</div>
 			</div>
 			<div class="form-group  field-note">
 				<label for="note" class="col-sm-3 control-label">
-					备注
+					商家备注
 				</label>
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
-						{{order_detail.note}}
+						{{shop_detail.note}}
 					</p>
+				</div>
+			</div>
+			<div class="form-group  field-menu">
+				<label for="menu" class="col-sm-3 control-label">
+					菜品
+				</label>
+				<div class="input-div col-sm-9">
+					<table class="table table-striped">
+						<thead>
+							{{#if menuCrudItems}}
+							<tr class="crud-table-header">
+							</tr>
+							{{/if}}
+						</thead>
+						<tbody>
+							{{#each menuCrudItems}}
+							<tr class="crud-table-row">
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
 				</div>
 			</div>
 			<div class="form-group">

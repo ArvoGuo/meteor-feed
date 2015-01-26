@@ -31,33 +31,33 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
-			<div class="form-group  field-username">
-				<label for="username" class="col-sm-3 control-label">
-					用户名
+			<div class="form-group  field-date">
+				<label for="date" class="col-sm-3 control-label">
+					订单日期
 				</label>
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
-						{{order_detail.username}}
+						{{formatDate order_detail.date 'MM-DD-YYYY'}}
 					</p>
 				</div>
 			</div>
-			<div class="form-group  field-shop">
-				<label for="shop" class="col-sm-3 control-label">
+			<div class="form-group  field-shop-id">
+				<label for="shopId" class="col-sm-3 control-label">
+					餐馆ID
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{order_detail.shopId}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-shop-name">
+				<label for="shopName" class="col-sm-3 control-label">
 					餐馆名
 				</label>
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
-						{{order_detail.shop}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-menu">
-				<label for="menu" class="col-sm-3 control-label">
-					菜名
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.menu}}
+						{{order_detail.shopName}}
 					</p>
 				</div>
 			</div>
@@ -68,26 +68,6 @@
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
 						{{order_detail.price}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-date">
-				<label for="date" class="col-sm-3 control-label">
-					下单时间
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.date}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-note">
-				<label for="note" class="col-sm-3 control-label">
-					备注
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.note}}
 					</p>
 				</div>
 			</div>

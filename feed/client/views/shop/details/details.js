@@ -22,7 +22,8 @@ Template.ShopDetails.helpers({
 });
 
 Template.ShopDetailsDetailsForm.rendered = function() {
-	
+	pageSession.set("menuCrudItems", this.data.shop_detail.menu || []);
+
 
 	pageSession.set("shopDetailsDetailsFormInfoMessage", "");
 	pageSession.set("shopDetailsDetailsFormErrorMessage", "");
@@ -114,6 +115,8 @@ Template.ShopDetailsDetailsForm.helpers({
 	},
 	"errorMessage": function() {
 		return pageSession.get("shopDetailsDetailsFormErrorMessage");
+	}, 
+		"menuCrudItems": function() {
+		return pageSession.get("menuCrudItems");
 	}
-	
 });

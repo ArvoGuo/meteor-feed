@@ -22,7 +22,8 @@ Template.GetfoodDetails.helpers({
 });
 
 Template.GetfoodDetailsDetailsForm.rendered = function() {
-	
+	pageSession.set("menuCrudItems", this.data.shop_detail.menu || []);
+
 
 	pageSession.set("getfoodDetailsDetailsFormInfoMessage", "");
 	pageSession.set("getfoodDetailsDetailsFormErrorMessage", "");
@@ -97,12 +98,12 @@ Template.GetfoodDetailsDetailsForm.events({
 	"click #form-close-button": function(e, t) {
 		e.preventDefault();
 
-		Router.go("order", {});
+		Router.go("shop", {});
 	},
 	"click #form-back-button": function(e, t) {
 		e.preventDefault();
 
-		Router.go("order", {});
+		Router.go("shop", {});
 	}
 
 	
@@ -114,6 +115,8 @@ Template.GetfoodDetailsDetailsForm.helpers({
 	},
 	"errorMessage": function() {
 		return pageSession.get("getfoodDetailsDetailsFormErrorMessage");
+	}, 
+		"menuCrudItems": function() {
+		return pageSession.get("menuCrudItems");
 	}
-	
 });

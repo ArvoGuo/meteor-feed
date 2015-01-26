@@ -75,6 +75,7 @@ Accounts.onCreateUser(function (options, user) {
 	}
 
 	
+Shop.insert({ ownerId: user._id });
 
 	return user;
 });

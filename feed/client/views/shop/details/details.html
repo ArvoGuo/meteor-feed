@@ -66,9 +66,24 @@
 					菜品
 				</label>
 				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{shop_detail.menu}}
-					</p>
+					<table class="table table-striped">
+						<thead>
+							{{#if menuCrudItems}}
+							<tr class="crud-table-header">
+							</tr>
+							{{/if}}
+						</thead>
+						<tbody>
+							{{#each menuCrudItems}}
+							<tr class="crud-table-row">
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
 				</div>
 			</div>
 			<div class="form-group">

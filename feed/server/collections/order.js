@@ -4,11 +4,11 @@ Order.allow({
 	},
 
 	update: function (userId, doc, fields, modifier) {
-		return true;
+		return userId && doc.ownerId == userId;
 	},
 
 	remove: function (userId, doc) {
-		return true;
+		return userId && doc.ownerId == userId;
 	}
 });
 
@@ -17,6 +17,8 @@ Order.before.insert(function(userId, doc) {
 	doc.createdBy = userId;
 
 	
+	if(!doc.ownerId) doc.ownerId = userId;
+if(!doc.totalAmount) doc.totalAmount = 0;
 });
 
 Order.before.update(function(userId, doc, fieldNames, modifier, options) {

@@ -7,6 +7,15 @@
 			</div>
 		</div>
 		{{> ShopEditEditForm}}
+<div class="modal crud-insert-form-container" id="field-menu-insert-form" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				{{> ShopEditFieldMenuInsertForm}}
+			</div>
+		</div>
+	</div>
+</div>
 	</div>
 </template>
 
@@ -68,7 +77,40 @@
 					菜品
 				</label>
 				<div class="input-div">
-					<input type="text" name="menu" value="{{shop_edit.menu}}" class="form-control" data-type="array">
+					<table class="table table-striped">
+						<thead>
+							<tr class="crud-table-controls">
+								<td colspan="0">
+									<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#field-menu-insert-form">
+										<span class="fa fa-plus">
+										</span>
+                    添加菜品
+									</button>
+								</td>
+							</tr>
+							{{#if menuCrudItems}}
+							<tr class="crud-table-header">
+                  <th>操作</th>
+                  <th>菜名</th>
+                  <th>价格</th>
+                  <th>总数</th>
+							</tr>
+							{{/if}}
+						</thead>
+						<tbody>
+							{{#each menuCrudItems}}
+							<tr class="crud-table-row">
+								<td class="td-icon delete-icon">
+									<span class="fa fa-trash-o" title="Delete">
+									</span>
+								</td>
+                <td>{{ this.name }}</td>
+                <td>{{ this.price }}</td>
+                <td>{{ this.count }}</td>
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
@@ -80,10 +122,79 @@
 					<button id="form-submit-button" class="btn btn-success" type="submit">
 						<span class="fa fa-check">
 						</span>
-						Save
+            保存这道菜
 					</button>
 					<a href="#" id="form-cancel-button" class="btn btn-default">
-						Cancel
+            取消
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+
+<template name="ShopEditFieldMenuInsertForm">
+	<div class="">
+		<h2 id="component-title">
+			Insert
+		</h2>
+		<form id="form" role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}		
+		
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
+			<div class="form-group">
+        <div class="form-group  field-phone">
+          <label for="name">
+            菜名
+          </label>
+          <div class="input-div">
+            <input type="text" name="name" value="" class="form-control">
+            <span id="help-text" class="help-block">
+            </span>
+            <span id="error-text" class="help-block">
+            </span>
+          </div>
+        </div>
+        <div class="form-group  field-phone">
+          <label for="price">
+            价格
+          </label>
+          <div class="input-div">
+            <input type="text" name="price" value="" class="form-control">
+            <span id="help-text" class="help-block">
+            </span>
+            <span id="error-text" class="help-block">
+            </span>
+          </div>
+        </div>
+        <div class="form-group  field-phone">
+          <label for="count">
+            数量
+          </label>
+          <div class="input-div">
+            <input type="text" name="count" value="" class="form-control">
+            <span id="help-text" class="help-block">
+            </span>
+            <span id="error-text" class="help-block">
+            </span>
+          </div>
+        </div>
+				<div class="submit-div">
+					<button id="form-submit-button" class="btn btn-success" type="submit">
+						<span class="fa fa-check">
+						</span>
+            保存餐馆信息
+					</button>
+					<a href="#" id="form-cancel-button" class="btn btn-default">
+            取消
 					</a>
 				</div>
 			</div>

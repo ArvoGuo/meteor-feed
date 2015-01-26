@@ -7,13 +7,22 @@
 			</div>
 		</div>
 		{{> GetfoodInsertInsertForm}}
+<div class="modal crud-insert-form-container" id="field-menu-insert-form" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				{{> GetfoodInsertFieldMenuInsertForm}}
+			</div>
+		</div>
+	</div>
+</div>
 	</div>
 </template>
 
 <template name="GetfoodInsertInsertForm">
 	<div class="">
 		<h2 id="component-title">
-			新点一道菜
+			新增餐馆
 		</h2>
 		<form id="form" role="form">
 			{{#if errorMessage}}
@@ -27,60 +36,24 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
-			<div class="form-group  field-username">
-				<label for="username">
-					用户名
-				</label>
-				<div class="input-div">
-					<input type="text" name="username" value="" class="form-control" autofocus="autofocus" required="required">
-					<span id="help-text" class="help-block">
-					</span>
-					<span id="error-text" class="help-block">
-					</span>
-				</div>
-			</div>
-			<div class="form-group  field-shop">
-				<label for="shop">
+			<div class="form-group  field-name">
+				<label for="name">
 					餐馆名
 				</label>
 				<div class="input-div">
-					<input type="text" name="shop" value="" class="form-control" required="required">
+					<input type="text" name="name" value="" class="form-control" autofocus="autofocus" required="required">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
 					</span>
 				</div>
 			</div>
-			<div class="form-group  field-menu">
-				<label for="menu">
-					菜名
+			<div class="form-group  field-phone">
+				<label for="phone">
+					电话
 				</label>
 				<div class="input-div">
-					<input type="text" name="menu" value="" class="form-control" required="required">
-					<span id="help-text" class="help-block">
-					</span>
-					<span id="error-text" class="help-block">
-					</span>
-				</div>
-			</div>
-			<div class="form-group  field-price">
-				<label for="price">
-					价格
-				</label>
-				<div class="input-div">
-					<input type="text" name="price" value="" class="form-control" required="required">
-					<span id="help-text" class="help-block">
-					</span>
-					<span id="error-text" class="help-block">
-					</span>
-				</div>
-			</div>
-			<div class="form-group  field-date">
-				<label for="date">
-					下单时间
-				</label>
-				<div class="input-div">
-					<input type="text" name="date" value="" class="form-control" required="required">
+					<input type="text" name="phone" value="" class="form-control">
 					<span id="help-text" class="help-block">
 					</span>
 					<span id="error-text" class="help-block">
@@ -89,7 +62,7 @@
 			</div>
 			<div class="form-group  field-note">
 				<label for="note">
-					备注
+					商家备注
 				</label>
 				<div class="input-div">
 					<textarea class="form-control" name="note"></textarea>
@@ -99,6 +72,80 @@
 					</span>
 				</div>
 			</div>
+			<div class="form-group  field-menu">
+				<label for="menu">
+					菜品
+				</label>
+				<div class="input-div">
+					<table class="table table-striped">
+						<thead>
+							<tr class="crud-table-controls">
+								<td colspan="0">
+									<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#field-menu-insert-form">
+										<span class="fa fa-plus">
+										</span>
+										Add
+									</button>
+								</td>
+							</tr>
+							{{#if menuCrudItems}}
+							<tr class="crud-table-header">
+								<th>
+									&nbsp;
+								</th>
+							</tr>
+							{{/if}}
+						</thead>
+						<tbody>
+							{{#each menuCrudItems}}
+							<tr class="crud-table-row">
+								<td class="td-icon delete-icon">
+									<span class="fa fa-trash-o" title="Delete">
+									</span>
+								</td>
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="submit-div">
+					<button id="form-submit-button" class="btn btn-success" type="submit">
+						<span class="fa fa-check">
+						</span>
+						Save
+					</button>
+					<a href="#" id="form-cancel-button" class="btn btn-default">
+						Cancel
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</template>
+
+<template name="GetfoodInsertFieldMenuInsertForm">
+	<div class="">
+		<h2 id="component-title">
+			Insert
+		</h2>
+		<form id="form" role="form">
+			{{#if errorMessage}}
+			<div class="alert alert-warning">
+				{{errorMessage}}
+			</div>
+			{{/if}}		
+		
+			{{#if infoMessage}}
+			<div class="alert alert-success">
+				{{infoMessage}}
+			</div>
+			{{/if}}
 			<div class="form-group">
 				<div class="submit-div">
 					<button id="form-submit-button" class="btn btn-success" type="submit">
