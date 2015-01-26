@@ -51,6 +51,24 @@
 					</span>
 				</div>
 			</div>
+			<div class="form-group  field-profile-department">
+				<label for="profile.department">
+					部门
+				</label>
+				<div class="input-div">
+					<select class="form-control" name="profile.department">
+						{{#each department}}
+						<option value="{{name}}">
+							{{name}}
+						</option>
+						{{/each}}
+					</select>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
 			<div class="form-group  field-password">
 				<label for="password">
 					密码

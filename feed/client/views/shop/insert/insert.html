@@ -80,33 +80,53 @@
 					<table class="table table-striped">
 						<thead>
 							<tr class="crud-table-controls">
-								<td colspan="0">
+								<td colspan="4">
 									<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#field-menu-insert-form">
 										<span class="fa fa-plus">
 										</span>
-                    添加菜品
+										insertTitle
 									</button>
 								</td>
 							</tr>
 							{{#if menuCrudItems}}
 							<tr class="crud-table-header">
-                  <th>操作</th>
-                  <th>菜名</th>
-                  <th>价格</th>
-                  <th>总数</th>
+								<th>
+									菜名
+								</th>
+								<th>
+									价格
+								</th>
+								<th>
+									上架时间
+								</th>
+								<th>
+									剩余数量
+								</th>
+								<th>
+									&nbsp;
+								</th>
 							</tr>
 							{{/if}}
 						</thead>
 						<tbody>
 							{{#each menuCrudItems}}
 							<tr class="crud-table-row">
+								<td>
+									{{name}}
+								</td>
+								<td>
+									{{price}}
+								</td>
+								<td>
+									{{formatDate date ''}}
+								</td>
+								<td>
+									{{count}}
+								</td>
 								<td class="td-icon delete-icon">
 									<span class="fa fa-trash-o" title="Delete">
 									</span>
 								</td>
-                <td>{{ this.name }}</td>
-                <td>{{ this.price }}</td>
-                <td>{{ this.count }}</td>
 							</tr>
 							{{/each}}
 						</tbody>
@@ -122,10 +142,10 @@
 					<button id="form-submit-button" class="btn btn-success" type="submit">
 						<span class="fa fa-check">
 						</span>
-            保存餐馆信息
+						Save
 					</button>
 					<a href="#" id="form-cancel-button" class="btn btn-default">
-            取消
+						Cancel
 					</a>
 				</div>
 			</div>
@@ -136,7 +156,7 @@
 <template name="ShopInsertFieldMenuInsertForm">
 	<div class="">
 		<h2 id="component-title">
-			Insert
+			insertTitle
 		</h2>
 		<form id="form" role="form">
 			{{#if errorMessage}}
@@ -150,51 +170,69 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
+			<div class="form-group  field-name">
+				<label for="name">
+					菜名
+				</label>
+				<div class="input-div">
+					<input type="text" name="name" value="" class="form-control" autofocus="autofocus" required="required">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-price">
+				<label for="price">
+					价格
+				</label>
+				<div class="input-div">
+					<input type="text" name="price" value="" class="form-control" required="required">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-date">
+				<label for="date">
+					上架时间
+				</label>
+				<div class="input-div">
+					<div class="input-group date">
+						<input type="text" name="date" value="" class="form-control" required="required" data-type="date">
+						<span class="input-group-addon">
+							<i class="fa fa-calendar">
+							</i>
+						</span>
+					</div>
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
+			<div class="form-group  field-count">
+				<label for="count">
+					剩余数量
+				</label>
+				<div class="input-div">
+					<input type="text" name="count" value="" class="form-control" required="required" data-type="integer">
+					<span id="help-text" class="help-block">
+					</span>
+					<span id="error-text" class="help-block">
+					</span>
+				</div>
+			</div>
 			<div class="form-group">
-        <div class="form-group  field-phone">
-          <label for="name">
-            菜名
-          </label>
-          <div class="input-div">
-            <input type="text" name="name" value="" class="form-control">
-            <span id="help-text" class="help-block">
-            </span>
-            <span id="error-text" class="help-block">
-            </span>
-          </div>
-        </div>
-        <div class="form-group  field-phone">
-          <label for="price">
-            价格
-          </label>
-          <div class="input-div">
-            <input type="text" name="price" value="" class="form-control">
-            <span id="help-text" class="help-block">
-            </span>
-            <span id="error-text" class="help-block">
-            </span>
-          </div>
-        </div>
-        <div class="form-group  field-phone">
-          <label for="count">
-            数量
-          </label>
-          <div class="input-div">
-            <input type="text" name="count" value="" class="form-control">
-            <span id="help-text" class="help-block">
-            </span>
-            <span id="error-text" class="help-block">
-            </span>
-          </div>
-        </div>
 				<div class="submit-div">
 					<button id="form-submit-button" class="btn btn-success" type="submit">
 						<span class="fa fa-check">
 						</span>
-            保存这道菜
+						Save
 					</button>
 					<a href="#" id="form-cancel-button" class="btn btn-default">
-            取消
+						Cancel
 					</a>
 				</div>
 			</div>

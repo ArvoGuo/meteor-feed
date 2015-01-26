@@ -1,5 +1,5 @@
-this.OrderInsertController = RouteController.extend({
-	template: "OrderInsert",
+this.DepartmentController = RouteController.extend({
+	template: "Department",
 
 	yieldTemplates: {
 		/*YIELD_TEMPLATES*/
@@ -19,7 +19,7 @@ this.OrderInsertController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("order_empty")
+			Meteor.subscribe("department")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,7 +34,7 @@ this.OrderInsertController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			order_empty: Order.findOne({_id:null}, {})
+			department: Department.find({}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

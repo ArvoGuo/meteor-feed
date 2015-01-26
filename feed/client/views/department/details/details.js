@@ -1,10 +1,10 @@
 var pageSession = new ReactiveDict();
 
-Template.OrderInsert.rendered = function() {
+Template.DepartmentDetails.rendered = function() {
 	
 };
 
-Template.OrderInsert.events({
+Template.DepartmentDetails.events({
 	"click #page-close-button": function(e, t) {
 		e.preventDefault();
 		Router.go("", {});
@@ -17,15 +17,15 @@ Template.OrderInsert.events({
 	
 });
 
-Template.OrderInsert.helpers({
+Template.DepartmentDetails.helpers({
 	
 });
 
-Template.OrderInsertInsertForm.rendered = function() {
+Template.DepartmentDetailsDetailsForm.rendered = function() {
 	
 
-	pageSession.set("orderInsertInsertFormInfoMessage", "");
-	pageSession.set("orderInsertInsertFormErrorMessage", "");
+	pageSession.set("departmentDetailsDetailsFormInfoMessage", "");
+	pageSession.set("departmentDetailsDetailsFormErrorMessage", "");
 
 	$(".input-group.date").each(function() {
 		var format = $(this).find("input[type='text']").attr("data-format");
@@ -50,24 +50,24 @@ Template.OrderInsertInsertForm.rendered = function() {
 	$("input[autofocus]").focus();
 };
 
-Template.OrderInsertInsertForm.events({
+Template.DepartmentDetailsDetailsForm.events({
 	"submit": function(e, t) {
 		e.preventDefault();
-		pageSession.set("orderInsertInsertFormInfoMessage", "");
-		pageSession.set("orderInsertInsertFormErrorMessage", "");
+		pageSession.set("departmentDetailsDetailsFormInfoMessage", "");
+		pageSession.set("departmentDetailsDetailsFormErrorMessage", "");
 		
 		var self = this;
 
 		function submitAction() {
 			if(!t.find("#form-cancel-button")) {
-				pageSession.set("orderInsertInsertFormInfoMessage", "Saved.");
+				pageSession.set("departmentDetailsDetailsFormInfoMessage", "Saved.");
 			}
 
-			Router.go("order", {});
+			/*SUBMIT_REDIRECT*/
 		}
 
 		function errorAction(msg) {
-			pageSession.set("orderInsertInsertFormErrorMessage", "Error. " + msg);
+			pageSession.set("departmentDetailsDetailsFormErrorMessage", "Error. " + msg);
 		}
 
 		validateForm(
@@ -81,7 +81,7 @@ Template.OrderInsertInsertForm.events({
 			function(values) {
 				
 
-				newId = Order.insert(values, function(e) { if(e) errorAction(e.message); else submitAction(); });
+				
 			}
 		);
 
@@ -92,28 +92,28 @@ Template.OrderInsertInsertForm.events({
 
 		
 
-		Router.go("order", {});
+		/*CANCEL_REDIRECT*/
 	},
 	"click #form-close-button": function(e, t) {
 		e.preventDefault();
 
-		/*CLOSE_REDIRECT*/
+		Router.go("department", {});
 	},
 	"click #form-back-button": function(e, t) {
 		e.preventDefault();
 
-		/*BACK_REDIRECT*/
+		Router.go("department", {});
 	}
 
 	
 });
 
-Template.OrderInsertInsertForm.helpers({
+Template.DepartmentDetailsDetailsForm.helpers({
 	"infoMessage": function() {
-		return pageSession.get("orderInsertInsertFormInfoMessage");
+		return pageSession.get("departmentDetailsDetailsFormInfoMessage");
 	},
 	"errorMessage": function() {
-		return pageSession.get("orderInsertInsertFormErrorMessage");
+		return pageSession.get("departmentDetailsDetailsFormErrorMessage");
 	}
 	
 });

@@ -1,10 +1,10 @@
 var pageSession = new ReactiveDict();
 
-Template.Order.rendered = function() {
+Template.Department.rendered = function() {
 	
 };
 
-Template.Order.events({
+Template.Department.events({
 	"click #page-close-button": function(e, t) {
 		e.preventDefault();
 		Router.go("", {});
@@ -17,18 +17,18 @@ Template.Order.events({
 	
 });
 
-Template.Order.helpers({
+Template.Department.helpers({
 	
 });
 
-var OrderViewItems = function(cursor) {
+var DepartmentViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
 
-	var searchString = pageSession.get("OrderViewSearchString");
-	var sortBy = pageSession.get("OrderViewSortBy");
-	var sortAscending = pageSession.get("OrderViewSortAscending");
+	var searchString = pageSession.get("DepartmentViewSearchString");
+	var sortBy = pageSession.get("DepartmentViewSortBy");
+	var sortAscending = pageSession.get("DepartmentViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
@@ -40,7 +40,7 @@ var OrderViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["shopName", "menu", "phone", "price", "totalAmount"];
+		var searchFields = ["name"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -68,9 +68,9 @@ var OrderViewItems = function(cursor) {
 	return filtered;
 };
 
-var OrderViewExport = function(cursor, fileType) {
-	var data = OrderViewItems(cursor);
-	var exportFields = ["shopName", "menu", "phone", "price", "totalAmount"];
+var DepartmentViewExport = function(cursor, fileType) {
+	var data = DepartmentViewItems(cursor);
+	var exportFields = ["name"];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
 
@@ -80,12 +80,12 @@ var OrderViewExport = function(cursor, fileType) {
 }
 
 
-Template.OrderView.rendered = function() {
-	pageSession.set("OrderViewStyle", "table");
+Template.DepartmentView.rendered = function() {
+	pageSession.set("DepartmentViewStyle", "table");
 	
 };
 
-Template.OrderView.events({
+Template.DepartmentView.events({
 	"submit #dataview-controls": function(e, t) {
 		return false;
 	},
@@ -98,7 +98,7 @@ Template.OrderView.events({
 			if(searchInput) {
 				searchInput.focus();
 				var searchString = searchInput.val();
-				pageSession.set("OrderViewSearchString", searchString);
+				pageSession.set("DepartmentViewSearchString", searchString);
 			}
 
 		}
@@ -114,7 +114,7 @@ Template.OrderView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					var searchString = searchInput.val();
-					pageSession.set("OrderViewSearchString", searchString);
+					pageSession.set("DepartmentViewSearchString", searchString);
 				}
 
 			}
@@ -129,7 +129,7 @@ Template.OrderView.events({
 				var searchInput = form.find("#dataview-search-input");
 				if(searchInput) {
 					searchInput.val("");
-					pageSession.set("OrderViewSearchString", "");
+					pageSession.set("DepartmentViewSearchString", "");
 				}
 
 			}
@@ -141,94 +141,94 @@ Template.OrderView.events({
 
 	"click #dataview-insert-button": function(e, t) {
 		e.preventDefault();
-		/**/
+		Router.go("department.insert", {});
 	},
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order_manage, "csv");
+		DepartmentViewExport(this.department, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order_manage, "csv");
+		DepartmentViewExport(this.department, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order_manage, "tsv");
+		DepartmentViewExport(this.department, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order_manage, "json");
+		DepartmentViewExport(this.department, "json");
 	}
 
 	
 });
 
-Template.OrderView.helpers({
+Template.DepartmentView.helpers({
 	"isEmpty": function() {
-		return !this.order_manage || this.order_manage.count() == 0;
+		return !this.department || this.department.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.order_manage && this.order_manage.count() > 0;
+		return this.department && this.department.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.order_manage && pageSession.get("OrderViewSearchString") && OrderViewItems(this.order_manage).length == 0;
+		return this.department && pageSession.get("DepartmentViewSearchString") && DepartmentViewItems(this.department).length == 0;
 	},
 	"searchString": function() {
-		return pageSession.get("OrderViewSearchString");
+		return pageSession.get("DepartmentViewSearchString");
 	},
 	"viewAsTable": function() {
-		return pageSession.get("OrderViewStyle") == "table";
+		return pageSession.get("DepartmentViewStyle") == "table";
 	},
 	"viewAsList": function() {
-		return pageSession.get("OrderViewStyle") == "list";
+		return pageSession.get("DepartmentViewStyle") == "list";
 	},
 	"viewAsGallery": function() {
-		return pageSession.get("OrderViewStyle") == "gallery";
+		return pageSession.get("DepartmentViewStyle") == "gallery";
 	}
 
 	
 });
 
 
-Template.OrderViewTable.rendered = function() {
+Template.DepartmentViewTable.rendered = function() {
 	
 };
 
-Template.OrderViewTable.events({
+Template.DepartmentViewTable.events({
 	"click .th-sortable": function(e, t) {
 		e.preventDefault();
-		var oldSortBy = pageSession.get("OrderViewSortBy");
+		var oldSortBy = pageSession.get("DepartmentViewSortBy");
 		var newSortBy = $(e.target).attr("data-sort");
 
-		pageSession.set("OrderViewSortBy", newSortBy);
+		pageSession.set("DepartmentViewSortBy", newSortBy);
 		if(oldSortBy == newSortBy) {
-			var sortAscending = pageSession.get("OrderViewSortAscending") || false;
-			pageSession.set("OrderViewSortAscending", !sortAscending);
+			var sortAscending = pageSession.get("DepartmentViewSortAscending") || false;
+			pageSession.set("DepartmentViewSortAscending", !sortAscending);
 		} else {
-			pageSession.set("OrderViewSortAscending", true);
+			pageSession.set("DepartmentViewSortAscending", true);
 		}
 	}
 });
 
-Template.OrderViewTable.helpers({
+Template.DepartmentViewTable.helpers({
 	"tableItems": function() {
-		return OrderViewItems(this.order_manage);
+		return DepartmentViewItems(this.department);
 	}
 });
 
 
-Template.OrderViewTableItems.rendered = function() {
+Template.DepartmentViewTableItems.rendered = function() {
 	
 };
 
-Template.OrderViewTableItems.events({
+Template.DepartmentViewTableItems.events({
 	"click td": function(e, t) {
 		e.preventDefault();
-		Router.go("order.details", {orderId: this._id});
+		Router.go("department.details", {departmentId: this._id});
 		return false;
 	},
 
@@ -244,7 +244,7 @@ Template.OrderViewTableItems.events({
 					label: "Yes",
 					className: "btn-success",
 					callback: function() {
-						Order.remove({ _id: me._id });
+						Department.remove({ _id: me._id });
 					}
 				},
 				danger: {
@@ -257,11 +257,11 @@ Template.OrderViewTableItems.events({
 	},
 	"click #edit-button": function(e, t) {
 		e.preventDefault();
-		/**/
+		Router.go("department.edit", {departmentId: this._id});
 		return false;
 	}
 });
 
-Template.OrderViewTableItems.helpers({
+Template.DepartmentViewTableItems.helpers({
 
 });

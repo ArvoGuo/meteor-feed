@@ -1,5 +1,5 @@
-this.GetfoodEditController = RouteController.extend({
-	template: "GetfoodEdit",
+this.DepartmentInsertController = RouteController.extend({
+	template: "DepartmentInsert",
 
 	yieldTemplates: {
 		/*YIELD_TEMPLATES*/
@@ -19,7 +19,7 @@ this.GetfoodEditController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("shop_edit", this.params.shopId)
+			Meteor.subscribe("department_empty")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,7 +34,7 @@ this.GetfoodEditController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			shop_edit: Shop.findOne({_id:this.params.shopId}, {})
+			department_empty: Department.findOne({_id:null}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

@@ -32,7 +32,7 @@ Template.ShopInsertInsertForm.rendered = function() {
 		var format = $(this).find("input[type='text']").attr("data-format");
 
 		if(format) {
-			format = format.toLowerCase();
+			format = format.toLowerCase();			
 		}
 		else {
 			format = "mm/dd/yyyy";
@@ -180,6 +180,7 @@ Template.ShopInsertFieldMenuInsertForm.events({
 
 			},
 			function(values) {
+				
 
 				var data = pageSession.get("menuCrudItems") || []; values._id = Random.id(); data.push(values); pageSession.set("menuCrudItems", data); $("#field-menu-insert-form").modal("hide"); e.currentTarget.reset();
 			}

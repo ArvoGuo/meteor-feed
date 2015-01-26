@@ -1,5 +1,5 @@
-this.HomeController = RouteController.extend({
-	template: "Home",
+this.DepartmentDetailsController = RouteController.extend({
+	template: "DepartmentDetails",
 
 	yieldTemplates: {
 		/*YIELD_TEMPLATES*/
@@ -19,6 +19,7 @@ this.HomeController = RouteController.extend({
 		
 
 		var subs = [
+			Meteor.subscribe("department_detail", this.params.departmentId)
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -32,7 +33,8 @@ this.HomeController = RouteController.extend({
 		
 
 		return {
-			params: this.params || {}
+			params: this.params || {},
+			department_detail: Department.findOne({_id:this.params.departmentId}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

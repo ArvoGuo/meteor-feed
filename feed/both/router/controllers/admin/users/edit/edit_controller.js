@@ -20,6 +20,7 @@ this.AdminUsersEditController = RouteController.extend({
 		
 
 		var subs = [
+			Meteor.subscribe("department"),
 			Meteor.subscribe("admin_user", this.params.userId)
 		];
 		var ready = true;
@@ -35,6 +36,7 @@ this.AdminUsersEditController = RouteController.extend({
 
 		return {
 			params: this.params || {},
+			department: Department.find({}, {}),
 			admin_user: Users.findOne({_id:this.params.userId}, {})
 		};
 		/*DATA_FUNCTION*/

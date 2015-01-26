@@ -70,12 +70,36 @@
 						<thead>
 							{{#if menuCrudItems}}
 							<tr class="crud-table-header">
+								<th>
+									菜名
+								</th>
+								<th>
+									价格
+								</th>
+								<th>
+									上架时间
+								</th>
+								<th>
+									剩余数量
+								</th>
 							</tr>
 							{{/if}}
 						</thead>
 						<tbody>
 							{{#each menuCrudItems}}
 							<tr class="crud-table-row">
+								<td>
+									{{name}}
+								</td>
+								<td>
+									{{price}}
+								</td>
+								<td>
+									{{formatDate date ''}}
+								</td>
+								<td>
+									{{count}}
+								</td>
 							</tr>
 							{{/each}}
 						</tbody>

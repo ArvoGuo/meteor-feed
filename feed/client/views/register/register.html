@@ -2,23 +2,30 @@
 	<div class="container">
 		<form id="register_form" class="account-form" role="form">
 			<h2>
-        请注册
+				Please sign up
 			</h2>
 			{{#if errorMessage}}
 			<div class="alert alert-warning">
 				{{errorMessage}}
 			</div>
 			{{/if}}
-			<input id="register_name" type="text" class="form-control" placeholder="用户名" required autofocus>
-			<input id="register_email" type="text" class="form-control" placeholder="邮箱" required>
-			<input id="register_password" type="password" class="form-control" placeholder="密码" required>
-			<button class="btn btn-lg btn-primary btn-block" type="submit" data-loading-text="请稍后...">
-        马上注册
+			<input id="register_name" type="text" class="form-control" placeholder="Your full name" required autofocus>
+			<input id="register_email" type="text" class="form-control" placeholder="Email address" required>
+			<input id="register_password" type="password" class="form-control" placeholder="Password" required>
+      <select class="form-control" name="profile.department">
+        {{#each department_display }}
+        <option value="{{name}}">
+          {{name}}
+        </option>
+        {{/each}}
+      </select>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" data-loading-text="Please wait...">
+				Sign up
 			</button>
 			<p class="account-form-text-after">
-      已有账号？
+				Already a member?
 				<a href="{{pathFor 'login'}}">
-          登录
+					Sign in here
 				</a>
 			</p>
 		</form>

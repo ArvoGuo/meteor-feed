@@ -20,7 +20,7 @@
 				<button type="submit" id="dataview-insert-button" class="btn btn-success">
 					<span class="fa fa-plus">
 					</span>
-          新增餐馆
+					Add new
 				</button>
 			</div>
 			<div id="dataview-controls-search">
@@ -29,7 +29,7 @@
 					<label class="sr-only" for="search">
 						Search
 					</label>
-					<input type="text" class="form-control" id="dataview-search-input" placeholder="请输入餐馆名" name="search" value="{{searchString}}" autofocus="autofocus">
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
 					<button type="button" id="dataview-search-button" class="btn btn-primary">
 						<span class="fa fa-search">
 						</span>
@@ -45,7 +45,7 @@
 				{{else}}
 				<div class="btn-group">
 					<button type="button" class="btn btn-default" id="dataview-export-default">
-            导出
+						Export
 					</button>
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						<span class="caret">
@@ -54,17 +54,17 @@
 					<ul class="dropdown-menu" role="menu">
 						<li>
 							<a href="#" id="dataview-export-csv">
-								导出CSV表格
+								Export to CSV
 							</a>
 						</li>
 						<li>
 							<a href="#" id="dataview-export-tsv">
-								导出TSV
+								Export to TSV
 							</a>
 						</li>
 						<li>
 							<a href="#" id="dataview-export-json">
-								导出JSON文件
+								Export to JSON
 							</a>
 						</li>
 					</ul>
@@ -133,9 +133,7 @@
 			{{note}}
 		</td>
 		<td>
-			{{#each menu}}
-        {{ this.name }}、
-      {{/each}}
+			{{menu}}
 		</td>
 		<td class="td-icon">
 			<span id="edit-button" class="fa fa-pencil" title="Edit">

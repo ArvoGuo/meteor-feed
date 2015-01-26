@@ -34,7 +34,7 @@ this.MyfoodController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			order: Order.find({}, {})
+			order: Order.find({ownerId:Meteor.userId()}, {})
 		};
 		/*DATA_FUNCTION*/
 	},

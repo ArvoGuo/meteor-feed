@@ -20,6 +20,7 @@ this.AdminUsersInsertController = RouteController.extend({
 		
 
 		var subs = [
+			Meteor.subscribe("department")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,6 +35,7 @@ this.AdminUsersInsertController = RouteController.extend({
 
 		return {
 			params: this.params || {},
+			department: Department.find({}, {}),
 			users_null: Users.findOne({_id:null}, {})
 		};
 		/*DATA_FUNCTION*/
