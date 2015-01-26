@@ -3,7 +3,7 @@ Meteor.publish("shop", function() {
 });
 
 Meteor.publish("shop_empty", function() {
-	return Shop.find({_id:null}, {});
+	return Shop.find({_id:"null"}, {});
 });
 
 Meteor.publish("shop_detail", function(shopId) {

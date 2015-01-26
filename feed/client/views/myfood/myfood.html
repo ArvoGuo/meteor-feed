@@ -22,48 +22,13 @@
 					<label class="sr-only" for="search">
 						Search
 					</label>
-					<input type="text" class="form-control" id="dataview-search-input" placeholder="Search" name="search" value="{{searchString}}" autofocus="autofocus">
+					<input type="text" class="form-control" id="dataview-search-input" placeholder=”餐馆/菜/电话“ name="search" value="{{searchString}}" autofocus="autofocus">
 					<button type="button" id="dataview-search-button" class="btn btn-primary">
 						<span class="fa fa-search">
 						</span>
 					</button>
 				</div>
 				{{/if}}
-			</div>
-			<div id="dataview-controls-export" class="form-group">
-				{{#if isNotEmpty}}			
-		{{#if isFound}}
-				<div>
-				</div>
-				{{else}}
-				<div class="btn-group">
-					<button type="button" class="btn btn-default" id="dataview-export-default">
-						Export
-					</button>
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						<span class="caret">
-						</span>
-					</button>
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href="#" id="dataview-export-csv">
-								Export to CSV
-							</a>
-						</li>
-						<li>
-							<a href="#" id="dataview-export-tsv">
-								Export to TSV
-							</a>
-						</li>
-						<li>
-							<a href="#" id="dataview-export-json">
-								Export to JSON
-							</a>
-						</li>
-					</ul>
-				</div>
-				{{/if}}			
-	{{/if}}
 			</div>
 		</form>
 		{{#if isNotEmpty}}	
@@ -88,17 +53,23 @@
 	<table id="dataview-table" class="table table-striped">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
-				<th class="th-sortable" data-sort="shopMenu">
-          菜名
-				</th>
-				<th class="th-sortable" data-sort="shopName">
+				<th class="th-sortable" data-sort="name">
 					餐馆名
+				</th>
+				<th class="th-sortable" data-sort="phone">
+				  电话	
+				</th>
+				<th class="th-sortable" data-sort="menu">
+          菜名
 				</th>
 				<th class="th-sortable" data-sort="price">
 					价格
 				</th>
+				<th class="th-sortable" data-sort="note">
+				  备注	
+				</th>
 				<th class="th-sortable" data-sort="date">
-					订单日期
+					下单日期
 				</th>
 			</tr>
 		</thead>
@@ -111,13 +82,19 @@
 <template name="MyfoodViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
+			{{name}}
+		</td>
+		<td>
+			{{phone}}
+		</td>
+		<td>
 			{{menu}}
 		</td>
 		<td>
-			{{shopName}}
+			{{price}}
 		</td>
 		<td>
-			{{this.price}}
+			{{note}}
 		</td>
 		<td>
 			{{formatDate createdAt 'YYYY-MM-DD'}}

@@ -45,8 +45,8 @@
 
 <template name="PublicLayoutLeftMenu">
 	<ul id="menu-items" class="nav navbar-nav">
-		<li id="menu-item-simple" class="{{menuItemClass 'home'}}">
-			<a href="{{pathFor 'home'}}">
+		<li id="menu-item-simple" class="{{menuItemClass 'home_public'}}">
+			<a href="{{pathFor 'home_public'}}">
 				首页
 			</a>
 		</li>
@@ -149,7 +149,7 @@
 	<ul id="menu-items" class="nav navbar-nav navbar-right">
 		<li id="menu-item-simple" class="{{menuItemClass 'admin'}}">
 			<a href="{{pathFor 'admin'}}">
-				管理员
+        用户管理
 			</a>
 		</li>
 		<li id="menu-item-dropdown" class="dropdown ">

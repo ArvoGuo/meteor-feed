@@ -7,7 +7,7 @@ Router.configure({
 });
 
 if(Meteor.isClient) {
-	var publicRoutes = ["home", "login", "register", "forgot_password", "reset_password"];
+	var publicRoutes = ["home_public", "login", "register", "forgot_password", "reset_password"];
 	var privateRoutes = ["home_private", "getfood", "myfood", "admin", "admin.users", "admin.users.details", "admin.users.insert", "admin.users.edit", "user_settings", "user_settings.profile", "user_settings.change_pass", "shop", "shop.insert", "shop.details", "shop.edit", "order", "order.details", "logout"];
 	var zonelessRoutes = [];
 
@@ -128,7 +128,7 @@ if(Meteor.isClient) {
 
 Router.map(function () {
 	
-	this.route("home", {path: "/", controller: "HomeController"});
+	this.route("home_public", {path: "/", controller: "HomePublicController"});
 	this.route("login", {path: "/login", controller: "LoginController"});
 	this.route("register", {path: "/register", controller: "RegisterController"});
 	this.route("forgot_password", {path: "/forgot_password", controller: "ForgotPasswordController"});

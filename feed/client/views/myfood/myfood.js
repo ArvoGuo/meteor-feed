@@ -216,7 +216,6 @@ Template.MyfoodViewTable.events({
 
 Template.MyfoodViewTable.helpers({
 	"tableItems": function() {
-    console.log(MyfoodViewItems(this.order))
 		return MyfoodViewItems(this.order);
 	}
 });

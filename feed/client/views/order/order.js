@@ -40,7 +40,7 @@ var OrderViewItems = function(cursor) {
 	} else {
 		searchString = searchString.replace(".", "\\.");
 		var regEx = new RegExp(searchString, "i");
-		var searchFields = ["date", "shopId", "shopName", "price"];
+		var searchFields = ["shopName", "menu", "phone", "price", "totalAmount"];
 		filtered = _.filter(raw, function(item) {
 			var match = false;
 			_.each(searchFields, function(field) {
@@ -70,7 +70,7 @@ var OrderViewItems = function(cursor) {
 
 var OrderViewExport = function(cursor, fileType) {
 	var data = OrderViewItems(cursor);
-	var exportFields = ["date", "shopId", "shopName", "price"];
+	var exportFields = ["shopName", "menu", "phone", "price", "totalAmount"];
 
 	var str = convertArrayOfObjects(data, exportFields, fileType);
 
@@ -81,6 +81,7 @@ var OrderViewExport = function(cursor, fileType) {
 
 
 Template.OrderView.rendered = function() {
+  console.log(232)
 	pageSession.set("OrderViewStyle", "table");
 	
 };
@@ -146,22 +147,22 @@ Template.OrderView.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order, "csv");
+		OrderViewExport(this.order_manage, "csv");
 	},
 
 	"click #dataview-export-csv": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order, "csv");
+		OrderViewExport(this.order_manage, "csv");
 	},
 
 	"click #dataview-export-tsv": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order, "tsv");
+		OrderViewExport(this.order_manage, "tsv");
 	},
 
 	"click #dataview-export-json": function(e, t) {
 		e.preventDefault();
-		OrderViewExport(this.order, "json");
+		OrderViewExport(this.order_manage, "json");
 	}
 
 	
@@ -169,13 +170,14 @@ Template.OrderView.events({
 
 Template.OrderView.helpers({
 	"isEmpty": function() {
-		return !this.order || this.order.count() == 0;
+		return !this.order_manage || this.order_manage.count() == 0;
 	},
 	"isNotEmpty": function() {
-		return this.order && this.order.count() > 0;
+    console.log(this.order_manage.count())
+		return this.order_manage && this.order_manage.count() > 0;
 	},
 	"isNotFound": function() {
-		return this.order && pageSession.get("OrderViewSearchString") && OrderViewItems(this.order).length == 0;
+		return this.order_manage && pageSession.get("OrderViewSearchString") && OrderViewItems(this.order_manage).length == 0;
 	},
 	"searchString": function() {
 		return pageSession.get("OrderViewSearchString");
@@ -195,7 +197,7 @@ Template.OrderView.helpers({
 
 
 Template.OrderViewTable.rendered = function() {
-  console.log(222)	
+	
 };
 
 Template.OrderViewTable.events({
@@ -216,14 +218,18 @@ Template.OrderViewTable.events({
 
 Template.OrderViewTable.helpers({
 	"tableItems": function() {
-    console.log(this.order)
-		return OrderViewItems(this.order);
+		return OrderViewItems(this.order_manage);
 	}
 });
 
 
 Template.OrderViewTableItems.rendered = function() {
-	
+  $('.js-get-user-email').each(function(){
+    var _this = $(this),
+        ownerId = _this.attr('data-owner-id');
+        userEmail = Meteor.users.findOne({'_id':ownerId});
+      _this.text(userEmail);
+  });
 };
 
 Template.OrderViewTableItems.events({
@@ -264,5 +270,4 @@ Template.OrderViewTableItems.events({
 });
 
 Template.OrderViewTableItems.helpers({
-
 });

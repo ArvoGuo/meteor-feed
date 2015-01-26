@@ -94,7 +94,7 @@
 </template>
 
 <template name="GetfoodViewTable">
-  <form class="form-inline add-order-form">
+  <form class="form-inline add-order-form" role="form" id="form">
 	<table id="dataview-table" class="table table-striped table-hover">
 		<thead id="dataview-table-header">
 			<tr id="dataview-table-header-row">
@@ -104,11 +104,14 @@
 				<th class="th-sortable" data-sort="phone">
 					电话
 				</th>
-				<th class="th-sortable" data-sort="note">
-					商家备注
-				</th>
 				<th class="th-sortable" data-sort="menu">
 					菜品
+				</th>
+				<th class="th-sortable" data-sort="price">
+          价格
+				</th>
+				<th class="th-sortable" data-sort="note">
+					备注
 				</th>
 				<th>
           操作
@@ -125,22 +128,27 @@
 <template name="GetfoodViewTableItems">
 	<tr id="dataview-table-items-row">
 		<td>
-      <input type="hidden" value="{{ name }}" name="name"/>
+      <input type="hidden"  value="{{ name }}" name="name"/>
 			{{name}}
 		</td>
 		<td>
-      <input type="hidden" value="{{ phone }}" name="phone"/>
+      <input type="hidden"  value="{{ phone }}" name="phone"/>
 			{{phone}}
-		</td>
-		<td>
-			{{note}}
 		</td>
 		<td>
       <select name="menu" class="form-control">
       {{#each menu}}
-        <option value="{{ this.name }}">{{ this.name }}</option>
+        <option data-price="{{ this.price }}" value="{{ this.name }}">{{ this.name }}</option>
       {{/each}}
     </select>
+		</td>
+		<td>
+      <span id="js-price"></span>
+      <input type="hidden" name="price" value="">
+		</td>
+		<td>
+      <input type="hidden"  value="{{ note }}" name="note"/>
+			{{note}}
 		</td>
 		<td class="td-icon">
       <button type="submit" class="btn btn-success" id="js-add-order">我要点这个</button>

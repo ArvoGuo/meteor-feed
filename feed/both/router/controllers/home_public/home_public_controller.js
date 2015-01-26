@@ -1,5 +1,5 @@
-this.OrderController = RouteController.extend({
-	template: "Order",
+this.HomePublicController = RouteController.extend({
+	template: "HomePublic",
 
 	yieldTemplates: {
 		/*YIELD_TEMPLATES*/
@@ -17,8 +17,8 @@ this.OrderController = RouteController.extend({
 
 	isReady: function() {
 		
+
 		var subs = [
-			Meteor.subscribe("order_manage")
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -27,11 +27,12 @@ this.OrderController = RouteController.extend({
 		});
 		return ready;
 	},
+
 	data: function() {
 		
+
 		return {
-			params: this.params || {},
-			order_manage: Order.find({}, {})
+			params: this.params || {}
 		};
 		/*DATA_FUNCTION*/
 	},

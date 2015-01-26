@@ -31,26 +31,6 @@
 				{{infoMessage}}
 			</div>
 			{{/if}}
-			<div class="form-group  field-date">
-				<label for="date" class="col-sm-3 control-label">
-					订单日期
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{formatDate order_detail.date 'MM-DD-YYYY'}}
-					</p>
-				</div>
-			</div>
-			<div class="form-group  field-shop-id">
-				<label for="shopId" class="col-sm-3 control-label">
-					餐馆ID
-				</label>
-				<div class="input-div col-sm-9">
-					<p class="form-control-static">
-						{{order_detail.shopId}}
-					</p>
-				</div>
-			</div>
 			<div class="form-group  field-shop-name">
 				<label for="shopName" class="col-sm-3 control-label">
 					餐馆名
@@ -61,6 +41,26 @@
 					</p>
 				</div>
 			</div>
+			<div class="form-group  field-menu">
+				<label for="menu" class="col-sm-3 control-label">
+					菜名
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{order_detail.menu}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-phone">
+				<label for="phone" class="col-sm-3 control-label">
+					电话
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{order_detail.phone}}
+					</p>
+				</div>
+			</div>
 			<div class="form-group  field-price">
 				<label for="price" class="col-sm-3 control-label">
 					价格
@@ -68,6 +68,16 @@
 				<div class="input-div col-sm-9">
 					<p class="form-control-static">
 						{{order_detail.price}}
+					</p>
+				</div>
+			</div>
+			<div class="form-group  field-total-amount">
+				<label for="totalAmount" class="col-sm-3 control-label">
+					数量
+				</label>
+				<div class="input-div col-sm-9">
+					<p class="form-control-static">
+						{{order_detail.totalAmount}}
 					</p>
 				</div>
 			</div>

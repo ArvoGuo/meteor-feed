@@ -222,47 +222,21 @@ Template.GetfoodViewTable.helpers({
 
 
 Template.GetfoodViewTableItems.rendered = function() {
-	
+    $('#js-price').each(function(){
+      var _this = $(this);
+      var _price = _this.closest('tr').find('option:selected').attr('data-price');
+      _this.text(_price);
+      $(this).next().val(_price);
+    });
 };
 
 Template.GetfoodViewTableItems.events({
-  /*
-	"click td": function(e, t) {
-		e.preventDefault();
-		Router.go("shop.details", {shopId: this._id});
-		return false;
-	},
-	"click #delete-button": function(e, t) {
-		e.preventDefault();
-		var me = this;
-		bootbox.dialog({
-			message: "Delete? Are you sure?",
-			title: "Delete",
-			animate: false,
-			buttons: {
-				success: {
-					label: "Yes",
-					className: "btn-success",
-					callback: function() {
-						Shop.remove({ _id: me._id });
-					}
-				},
-				danger: {
-					label: "No",
-					className: "btn-default"
-				}
-			}
-		});
-		return false;
-	},
-	"click #edit-button": function(e, t) {
-		e.preventDefault();
-		Router.go("shop.edit", {shopId: this._id});
-		return false;
-	}
-  */
+  "change select": function(e,t){
+    var _price =  $(e.target).find('option:selected').attr('data-price');
+    var js_price = $('#js-price').text(_price);
+    js_price.next().val(_price);
+  },
 	"click #js-add-order": function(e, t) {
-		e.preventDefault();
 		pageSession.set("getfoodInsertInsertFormInfoMessage", "");
 		pageSession.set("getfoodInsertInsertFormErrorMessage", "");
 
@@ -273,7 +247,7 @@ Template.GetfoodViewTableItems.events({
 				pageSession.set("getfoodInsertInsertFormInfoMessage", "Saved.");
 			}
 
-		//	Router.go("shop", {});
+		  Router.go("myfood", {});
 		}
 
 		function errorAction(msg) {
@@ -281,22 +255,22 @@ Template.GetfoodViewTableItems.events({
 		}
 
 		validateForm(
-			$(e.target),
+			$(e.target).closest('form'),
 			function(fieldName, fieldValue) {
 
 			},
 			function(msg) {
-
+        bootbox.alert('提交失败，请联系管理员！');
 			},
 			function(values) {
-        var orderMenu = $('[name=menu]').val();
-        values['menu'] = orderMenu;
+        console.log(values)
 				newId = Order.insert(values, function(e) { if(e) errorAction(e.message); else submitAction(); });
+        bootbox.alert('提交成功！');
 			}
 		);
 
 		return false;
-	},
+	}
 });
 
 Template.GetfoodViewTableItems.helpers({
