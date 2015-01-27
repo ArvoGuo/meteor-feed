@@ -12,7 +12,7 @@ Meteor.startup(function(){
     });
   }
 
-  if(Meteor.users.find().count() === 0){
+  if(Meteor.users.find({'roles':["admin"]}).count() === 0){
     Accounts.createUser({
       email:'admin@qq.com',
       password:'123456',
