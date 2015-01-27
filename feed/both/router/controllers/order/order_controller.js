@@ -19,7 +19,8 @@ this.OrderController = RouteController.extend({
 		
 
 		var subs = [
-			Meteor.subscribe("order_manage")
+			Meteor.subscribe("order_manage"),
+      Meteor.subscribe('users')
 		];
 		var ready = true;
 		_.each(subs, function(sub) {
@@ -34,7 +35,8 @@ this.OrderController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			order_manage: Order.find({}, {})
+			order_manage: Order.find({}, {}),
+      users : Users.find()
 		};
 		/*DATA_FUNCTION*/
 	},
