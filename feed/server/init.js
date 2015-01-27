@@ -11,22 +11,23 @@ Meteor.startup(function(){
       name:'人事行政部'
     });
   }
-
-  if(Meteor.users.find({'roles':["admin"]}).count() === 0){
+  if(Users.find({'username': 'ksadmin'}).count() === 0){
     Accounts.createUser({
-      email:'admin@qq.com',
+      username: "ksadmin",
+      email:'ksadmin@gmail.com',
       password:'123456',
       profile:{
-        name:"admin",
+        name:"ksadmin",
         department: '研发部',
-        email:"admin@qq.com"
+        email:"ksadmin@gmail.com"
       }
     });
+
     Users.update({
-      roles: ['user']
+     'username': 'ksadmin'
     },{
       '$set':{
-        roles: ['admin'],
+        roles: ['admin']
       }
     });
   }
