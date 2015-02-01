@@ -35,7 +35,7 @@ this.OrderController = RouteController.extend({
 
 		return {
 			params: this.params || {},
-			order_manage: Order.find({}, {}),
+			order_manage: Order.find({}, {sort: { 'createdAt': -1}}),
       users : Users.find()
 		};
 		/*DATA_FUNCTION*/

@@ -22,7 +22,7 @@
 					<label class="sr-only" for="search">
 						Search
 					</label>
-					<input type="text" class="form-control" id="dataview-search-input" placeholder=”餐馆/菜/电话“ name="search" value="{{searchString}}" autofocus="autofocus">
+					<input type="text" class="form-control" id="dataview-search-input" placeholder="餐馆/菜/电话" name="search" value="{{searchString}}" autofocus="autofocus">
 					<button type="button" id="dataview-search-button" class="btn btn-primary">
 						<span class="fa fa-search">
 						</span>
@@ -34,7 +34,7 @@
 		{{#if isNotEmpty}}	
 			{{#if isNotFound}}
 		<div class="alert alert-warning">
-			"{{searchString}}" not found.
+			没有找到 "{{searchString}}".
 		</div>
 		{{else}}
 		<div id="dataview-data">
@@ -71,6 +71,9 @@
 				<th class="th-sortable" data-sort="date">
 					下单日期
 				</th>
+        <th>
+          操作
+        </th>
 			</tr>
 		</thead>
 		<tbody id="dataview-table-items">
@@ -97,7 +100,11 @@
 			{{note}}
 		</td>
 		<td>
-			{{formatDate createdAt 'YYYY-MM-DD HH:MM'}}
+			{{formatDate createdAt 'YYYY/MM/DD HH:MM'}}
+		</td>
+		<td class="td-icon" width="100">
+			<span id="delete-button" class="fa fa-trash-o" title="删除">
+			</span>
 		</td>
 	</tr>
 </template>

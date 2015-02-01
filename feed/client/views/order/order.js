@@ -1,7 +1,26 @@
 var pageSession = new ReactiveDict();
-
 Template.Order.rendered = function() {
-	
+	$(".input-group.date").each(function() {
+		var format = $(this).find("input[type='text']").attr("data-format");
+
+		if(format) {
+			format = format.toLowerCase();
+		}
+		else {
+			format = "yyyy/mm/dd";
+		}
+
+		$(this).datepicker({
+			autoclose: true,
+			todayHighlight: true,
+			todayBtn: true,
+			forceParse: false,
+			keyboardNavigation: false,
+			format: format
+		});
+	});
+
+	$("input[autofocus]").focus();
 };
 
 Template.Order.events({
@@ -21,18 +40,40 @@ Template.Order.helpers({
 	
 });
 
+var setCollectionByDate = function(){
+  var startTime = new Date(new Date($('[name=start-date]').val() || '2014/1/1').toISOString());
+  var endTime = new Date(new Date($('[name=end-date]').val() || '2099/1/1').toISOString());
+  var serarchCollection = Order.find({'createdAt':{'$gt': startTime ,'$lt': endTime }}, {'sort': {'createdAt': -1}});
+  return {
+    order_manage: serarchCollection,
+    startTime: startTime,
+    endTime: endTime
+  };
+};
+
 var OrderViewItems = function(cursor) {
 	if(!cursor) {
 		return [];
 	}
-
 	var searchString = pageSession.get("OrderViewSearchString");
+  if(searchString && searchString.indexOf('searchByTimeInterval') !== -1){
+    searchString = '';
+  }
 	var sortBy = pageSession.get("OrderViewSortBy");
 	var sortAscending = pageSession.get("OrderViewSortAscending");
 	if(typeof(sortAscending) == "undefined") sortAscending = true;
 
 	var raw = cursor.fetch();
-
+  raw = _.map(raw, function(item){
+    var user = Users.findOne({'_id': item.ownerId });
+    var email = user.profile.email,
+        username = user.profile.name,
+        department = user.profile.department;
+    item.email = email;
+    item.username= username;
+    item.department = department;
+    return item;
+  });
 	// filter
 	var filtered = [];
 	if(!searchString || searchString == "") {
@@ -69,10 +110,10 @@ var OrderViewItems = function(cursor) {
 };
 
 var OrderViewExport = function(cursor, fileType) {
-	var data = OrderViewItems(cursor);
-	var exportFields = ["shopName", "menu", "phone", "price", "totalAmount"];
+	var data = OrderViewItems(cursor, true);
+	var exportFields = ["username", "email", "department", "name", "menu", "phone", "price", "createdAt"];
 
-	var str = convertArrayOfObjects(data, exportFields, fileType);
+	var str = convertArrayOfObjects(data, exportFields, fileType, true);
 
 	var filename = "export." + fileType;
 
@@ -104,7 +145,11 @@ Template.OrderView.events({
 		}
 		return false;
 	},
-
+  'click #js-sort-by-time': function(e, t){
+    var setter = setCollectionByDate();
+    this.order_manage = setter.order_manage;
+		pageSession.set("OrderViewSearchString", "searchByTimeInterval" + setter.startTime + setter.endTime);
+  },
 	"keydown #dataview-search-input": function(e, t) {
 		if(e.which === 13)
 		{
@@ -146,25 +191,11 @@ Template.OrderView.events({
 
 	"click #dataview-export-default": function(e, t) {
 		e.preventDefault();
+    setCollectionByDate();
+    var setter = setCollectionByDate();
+    this.order_manage = setter.order_manage;
 		OrderViewExport(this.order_manage, "csv");
-	},
-
-	"click #dataview-export-csv": function(e, t) {
-		e.preventDefault();
-		OrderViewExport(this.order_manage, "csv");
-	},
-
-	"click #dataview-export-tsv": function(e, t) {
-		e.preventDefault();
-		OrderViewExport(this.order_manage, "tsv");
-	},
-
-	"click #dataview-export-json": function(e, t) {
-		e.preventDefault();
-		OrderViewExport(this.order_manage, "json");
 	}
-
-	
 });
 
 Template.OrderView.helpers({
@@ -222,12 +253,6 @@ Template.OrderViewTable.helpers({
 
 
 Template.OrderViewTableItems.rendered = function() {
-  $('.js-order-owner').each(function(){
-    var _this = $(this),
-        _ownerId = _this.attr('data-owner-id'),
-        _owner = Users.findOne({'_id': _ownerId}).profile.email;
-    _this.text(_owner);
-  });
 };
 
 Template.OrderViewTableItems.events({

@@ -37,7 +37,7 @@ this.deepen = function(o) {
 	fileType: can be "json", "csv", "tsv" (string)
 */
 
-this.convertArrayOfObjects = function(data, exportFields, fileType) {
+this.convertArrayOfObjects = function(data, exportFields, fileType, bTranslate) {
 	data = data || [];
 	fileType = fileType || "csv";
 	exportFields = exportFields || [];
@@ -57,7 +57,6 @@ this.convertArrayOfObjects = function(data, exportFields, fileType) {
 
 		str = JSON.stringify(tmp);
 	}
-
 	// export to CSV or TSV
 	if(fileType == "csv" || fileType == "tsv") {
 		var columnSeparator = "";
@@ -82,14 +81,28 @@ this.convertArrayOfObjects = function(data, exportFields, fileType) {
 					str = str + columnSeparator;
 				}
 
-				if(typeof(doc[field]) == "undefined")
+				if(typeof(doc[field]) == "undefined"){
 					str = str + "\"\"";
-				else
+        }
+				else{
+          if(doc[field] && (doc[field].toString().indexOf('GMT+0800 (中国标准时间)') !== -1)){
+            doc[field] = Helpers.formatDate(new Date(doc[field].toString()), 'YYYY/MM/DD HH:MM');
+          }
 					str = str + "\"" + doc[field] + "\"";
+        }
 			});
 			str = str + "\r\n";
 		});
 	}
-
+  if(!!bTranslate){
+    str = str.replace('username', '姓名')
+      .replace('name', '餐馆名')
+      .replace('phone', '电话')
+      .replace('menu', '菜名')
+      .replace('department', '部门')
+      .replace('email', '邮箱')
+      .replace('createdAt', '下单时间')
+      .replace('price', '价格');
+  }
 	return str;
 };
