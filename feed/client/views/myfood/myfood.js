@@ -236,19 +236,19 @@ Template.MyfoodViewTableItems.events({
 		e.preventDefault();
 		var me = this;
 		bootbox.dialog({
-			message: "Delete? Are you sure?",
+			message: "Are you fucking sure 要删除这条单吗？",
 			title: "Delete",
 			animate: false,
 			buttons: {
 				success: {
-					label: "Yes",
+					label: "确认",
 					className: "btn-success",
 					callback: function() {
 						Order.remove({ _id: me._id });
 					}
 				},
 				danger: {
-					label: "No",
+					label: "取消",
 					className: "btn-default"
 				}
 			}

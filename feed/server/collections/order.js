@@ -8,6 +8,10 @@ Order.allow({
 	},
 
 	remove: function (userId, doc) {
+    var user = Users.findOne({'_id': userId});
+    if(user.roles[0] === 'admin'){
+      return true;
+    }
 		return userId && doc.ownerId == userId;
 	}
 });

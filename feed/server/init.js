@@ -27,8 +27,30 @@ Meteor.startup(function(){
      'username': 'ksadmin'
     },{
       '$set':{
-        roles: ['admin']
+        roles: ['admin'],
+        'emails.0.verified': true
       }
     });
   }
+
+  Accounts.emailTemplates.from = '15982253984@163.com';
+
+  Accounts.emailTemplates.siteName = 'Meteor 订餐系统';
+
+  Accounts.emailTemplates.verifyEmail.subject = function(user) {
+    return '确认你的邮箱地址';
+  };
+  Accounts.emailTemplates.verifyEmail.text = function(user, url) {
+    return '点击下面链接激活你的账号：' + url;
+  };
+/*
+  Accounts.validateLoginAttempt(function(attempt){
+    if (attempt.user && attempt.user.emails && !attempt.user.emails[0].verified ) {
+      console.log('email not verified');
+
+      return false; // the login is aborted
+    }
+    return true;
+  });
+  */
 });

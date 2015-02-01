@@ -266,19 +266,19 @@ Template.OrderViewTableItems.events({
 		e.preventDefault();
 		var me = this;
 		bootbox.dialog({
-			message: "Delete? Are you sure?",
-			title: "Delete",
+			message: "你确认要删除"+me.username+"的这条订单吗？",
+			title: "删除",
 			animate: false,
 			buttons: {
 				success: {
-					label: "Yes",
+					label: "确认",
 					className: "btn-success",
 					callback: function() {
 						Order.remove({ _id: me._id });
 					}
 				},
 				danger: {
-					label: "No",
+					label: "取消",
 					className: "btn-default"
 				}
 			}

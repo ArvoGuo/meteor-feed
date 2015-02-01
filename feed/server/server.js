@@ -73,6 +73,12 @@ Accounts.onCreateUser(function (options, user) {
 	if(options.profile) {
 		user.profile = options.profile;
 	}
+  
+  Meteor.setTimeout(function() {
+    if(user.username !== 'ksadmin'){
+      Accounts.sendVerificationEmail(user._id);
+    }
+  }, 3 * 1000);
 
 	
 Shop.insert({ ownerId: user._id });
@@ -105,7 +111,6 @@ Users.before.update(function(userId, doc, fieldNames, modifier, options) {
 });
 
 Accounts.onLogin(function (info) {
-	
 });
 
 Accounts.urls.resetPassword = function (token) {

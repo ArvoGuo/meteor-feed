@@ -236,19 +236,19 @@ Template.ShopViewTableItems.events({
 		e.preventDefault();
 		var me = this;
 		bootbox.dialog({
-			message: "Delete? Are you sure?",
-			title: "Delete",
+			message: "确认要删除这家店吗？",
+			title: "删除",
 			animate: false,
 			buttons: {
 				success: {
-					label: "Yes",
+					label: "确认",
 					className: "btn-success",
 					callback: function() {
 						Shop.remove({ _id: me._id });
 					}
 				},
 				danger: {
-					label: "No",
+					label: "取消",
 					className: "btn-default"
 				}
 			}
