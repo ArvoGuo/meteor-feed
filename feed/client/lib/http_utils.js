@@ -5,7 +5,7 @@
 this.downloadLocalResource = function(data, filename, mimeType) {
 	filename = filename || "download";
 	mimeType = mimeType || "application/octet-stream";
-
+  data =  encodeURIComponent(data); 
 	var bb = new Blob([data], { type: mimeType });
 	var link = document.createElement("a");
 	link.download = filename;
