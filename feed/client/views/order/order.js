@@ -194,7 +194,7 @@ Template.OrderView.events({
     setCollectionByDate();
     var setter = setCollectionByDate();
     this.order_manage = setter.order_manage;
-		OrderViewExport(this.order_manage, "csv");
+		OrderViewExport(this.order_manage, "tsv");
 	}
 });
 
